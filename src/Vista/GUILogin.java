@@ -5,6 +5,10 @@
  */
 package Vista;
 
+import Controlador.ControladorGUILogin;
+import javax.print.event.PrintJobEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author "Heber Anthony Zuniga Torres"
@@ -16,6 +20,8 @@ public class GUILogin extends javax.swing.JFrame {
      */
     public GUILogin() {
         initComponents();
+        ControladorGUILogin controladorGUILogin = new ControladorGUILogin(this);
+        escuchar(controladorGUILogin);
     }
 
     /**
@@ -34,8 +40,8 @@ public class GUILogin extends javax.swing.JFrame {
         txtCuenta = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,13 +61,15 @@ public class GUILogin extends javax.swing.JFrame {
         jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Contraseña:");
 
-        jButton1.setBackground(java.awt.Color.gray);
-        jButton1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jButton1.setForeground(java.awt.Color.darkGray);
-        jButton1.setText("Inicio");
+        btnInicio.setBackground(java.awt.Color.gray);
+        btnInicio.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        btnInicio.setForeground(java.awt.Color.darkGray);
+        btnInicio.setText("Inicio");
+        btnInicio.setActionCommand("inicio");
 
-        jButton2.setBackground(java.awt.Color.darkGray);
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/exit.png"))); // NOI18N
+        btnSalir.setBackground(java.awt.Color.darkGray);
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/exit.png"))); // NOI18N
+        btnSalir.setActionCommand("salir");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -85,13 +93,13 @@ public class GUILogin extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtPassword)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(btnInicio)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(txtCuenta))
                                 .addContainerGap())))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(btnSalir)
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -101,7 +109,7 @@ public class GUILogin extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2)
+                .addComponent(btnSalir)
                 .addGap(79, 79, 79)
                 .addComponent(jLabel2)
                 .addGap(54, 54, 54)
@@ -113,7 +121,7 @@ public class GUILogin extends javax.swing.JFrame {
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnInicio)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -168,8 +176,8 @@ public class GUILogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -178,4 +186,28 @@ public class GUILogin extends javax.swing.JFrame {
     private javax.swing.JTextField txtCuenta;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
+
+    public static final String BTN_INICIO = "inicio";
+    public static final String BTN_SALIR = "salir";
+
+    public static void printMessage(String cadena) {
+        JOptionPane.showMessageDialog(null, cadena);
+    }
+
+    public static String printExit() {
+        int opcion;
+        opcion = JOptionPane.showConfirmDialog(null, "Desea salir","",JOptionPane.YES_NO_OPTION);
+        if (opcion ==    JOptionPane.YES_OPTION) {
+            return "si";
+        }
+        else {
+            return "no";
+        }
+    }
+
+    public void escuchar(ControladorGUILogin controladorGUILogin) {
+        btnInicio.addActionListener(controladorGUILogin);
+        btnSalir.addActionListener(controladorGUILogin);
+    }
+
 }
