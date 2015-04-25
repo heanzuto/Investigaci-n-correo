@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Vista.GUICorreo;
 import Vista.GUILogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,10 +24,16 @@ public class ControladorGUILogin implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GUILogin.BTN_INICIO)) {
-            GUILogin.printMessage("asdasdasd");
+            //GUILogin.printMessage("asdasdasd");
+            GUICorreo guiCorreo = new GUICorreo();
+            guiCorreo.show();
+            guiLogin.setVisible(false);
         }
         if (e.getActionCommand().equals(GUILogin.BTN_SALIR)) {
-            GUILogin.printExit();
+            if(GUILogin.printExit().equalsIgnoreCase("si") )
+            {
+                System.exit(0);
+            }
         }
     }
 
