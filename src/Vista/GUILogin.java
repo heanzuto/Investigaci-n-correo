@@ -51,7 +51,7 @@ public class GUILogin extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         jLabel2.setForeground(java.awt.Color.white);
-        jLabel2.setText("e@mail");
+        jLabel2.setText("e-m@il");
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel3.setForeground(java.awt.Color.white);
@@ -61,7 +61,6 @@ public class GUILogin extends javax.swing.JFrame {
         jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Contraseña:");
 
-        btnInicio.setBackground(java.awt.Color.gray);
         btnInicio.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         btnInicio.setForeground(java.awt.Color.darkGray);
         btnInicio.setText("Inicio");
@@ -82,7 +81,7 @@ public class GUILogin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 81, Short.MAX_VALUE)
+                                .addGap(0, 92, Short.MAX_VALUE)
                                 .addComponent(jLabel2)
                                 .addGap(40, 40, 40))
                             .addGroup(jPanel1Layout.createSequentialGroup()
