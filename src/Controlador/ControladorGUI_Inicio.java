@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Vista.GUILogin;
 import Vista.GUI_Inicio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,8 @@ private GUI_Inicio guiInicio;
          {
              if(GUI_Inicio.confirmMessage("G-Mail fue selecionado esta seguro que desea ingresar a este correo?").equalsIgnoreCase("si"))
             {
-                
+              GUILogin guiLogin  =new GUILogin();
+              guiLogin.setVisible(true);
             }
          }
          if(guiInicio.radioOutlook().isSelected())
