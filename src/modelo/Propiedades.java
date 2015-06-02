@@ -11,38 +11,38 @@ package modelo;
  */
 public class Propiedades {
 
-    private String []propsGmail={"mail.smtp.host","smtp.gmail.com",
-                                 "mail.smtp.starttls.enable","true",
-                                 "mail.smtp.auth","true",
-                                  "mail.smtp.user","usuario" ,
-                                   "mail.smtp.port", "587" };
-    
-    private static String []propsOutlook={"mail.smtp.host", "smtp.live.com",
-                                 "mail.smtp.starttls.enable", "true",
-                                 "mail.smtp.auth", "true",
-                                  "mail.smtp.user","usuario" ,
-                                   "mail.smtp.port", "25" };
-      
-    private static String[]propsUCR={"mail.smtp.host", "smtp.ucr.ac.cr ",
-                                 "mail.smtp.starttls.enable", "true",
-                                 "mail.smtp.auth", "true",
-                                  "mail.smtp.user","usuario" ,
-                                   "mail.smtp.port", "25" };
+    private String[] PROPS_GMAIL = {"mail.smtp.host", "smtp.gmail.com",
+        "mail.smtp.starttls.enable", "true",
+        "mail.smtp.auth", "true",
+        "mail.smtp.user", "usuario",
+        "mail.smtp.port", "587"};
+
+    private static String[] PROPS_OUTLOOK = {"mail.smtp.host", "smtp.live.com",
+        "mail.smtp.starttls.enable", "true",
+        "mail.smtp.auth", "true",
+        "mail.smtp.user", "usuario",
+        "mail.smtp.port", "25"};
+
+    private static String[] PROPS_UCR = {"mail.smtp.host", "smtp.ucr.ac.cr ",
+        "mail.smtp.starttls.enable", "true",
+        "mail.smtp.auth", "true",
+        "mail.smtp.user", "usuario",
+        "mail.smtp.port", "25"};
                                 //SMTP:smtp.ucr.ac.cr   (25) //POP:ucr.ac.cr (110)
-            
+
     public Propiedades() {
     }
 
     public String[] getPropsGmail() {
-        return propsGmail;
+        return PROPS_GMAIL;
     }
 
     public static String[] getPropsOutlook() {
-        return propsOutlook;
+        return PROPS_OUTLOOK;
     }
 
     public static String[] getPropsUCR() {
-        return propsUCR;
+        return PROPS_UCR;
     }
-    
+
 }
