@@ -9,6 +9,7 @@ import Vista.GUILogin;
 import Vista.GUI_Inicio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import modelo.Propiedades;
 
 /**
  *
@@ -17,6 +18,8 @@ import java.awt.event.ActionListener;
 public class ControladorGUI_Inicio implements ActionListener
 {
 private GUI_Inicio guiInicio;
+            Propiedades propiedades = new Propiedades();
+            
     public ControladorGUI_Inicio(GUI_Inicio guiInicio) {
         this.guiInicio=guiInicio;
     }
@@ -30,6 +33,7 @@ private GUI_Inicio guiInicio;
              if(GUI_Inicio.confirmMessage("G-Mail fue selecionado esta seguro que desea ingresar a este correo?").equalsIgnoreCase("si"))
             {
               GUILogin guiLogin  =new GUILogin();
+               propiedades.setOpcion(1);
               guiLogin.setVisible(true);
             }
          }
@@ -37,14 +41,18 @@ private GUI_Inicio guiInicio;
          {
              if(GUI_Inicio.confirmMessage("Outlook fue selecionado esta seguro que desea ingresar a este correo?").equalsIgnoreCase("si"))
             {
-                
+                 GUILogin guiLogin  =new GUILogin();
+               propiedades.setOpcion(2);
+              guiLogin.setVisible(true);
             }
          }
          if(guiInicio.radioUCR().isSelected())
          {
               if(GUI_Inicio.confirmMessage("Correo institucional UCR fue selecionado esta seguro que desea ingresar a este correo?").equalsIgnoreCase("si"))
             {
-                
+                 GUILogin guiLogin  =new GUILogin();
+               propiedades.setOpcion(3);
+              guiLogin.setVisible(true);
             }
          }
         }

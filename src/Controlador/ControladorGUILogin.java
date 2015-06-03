@@ -7,8 +7,11 @@ package Controlador;
 
 import Vista.GUICorreo;
 import Vista.GUILogin;
+import Vista.GUI_Inicio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import modelo.Propiedades;
+import modelo.SMTPAuthentication;
 
 /**
  *
@@ -24,15 +27,21 @@ public class ControladorGUILogin implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GUILogin.BTN_INICIO)) {
-            //GUILogin.printMessage("asdasdasd");
-            GUICorreo guiCorreo = new GUICorreo();
-            guiCorreo.show();
-            guiLogin.setVisible(false);
+            
+             SMTPAuthentication autentificacion = new SMTPAuthentication(guiLogin.getTxtCuenta(),guiLogin.getTxtPassword());
+             autentificacion.autentificar();
+             if(SMTPAuthentication.getEstadoAtentificado())
+             {
+                 GUICorreo guiCorreo = new GUICorreo();
+                 guiCorreo.show();
+                 guiLogin.setVisible(false);
+             }
+
         }
         if (e.getActionCommand().equals(GUILogin.BTN_SALIR)) {
-            if(GUILogin.printExit().equalsIgnoreCase("si") )
+           if(GUI_Inicio.confirmMessage("Esta seguro que quiere salir d la aplicación?").equalsIgnoreCase("si"))
             {
-                System.exit(0);
+               System.exit(0); 
             }
         }
     }

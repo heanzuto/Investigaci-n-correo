@@ -8,6 +8,8 @@ package Vista;
 import Controlador.ControladorGUILogin;
 import javax.print.event.PrintJobEvent;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -174,4 +176,21 @@ public class GUILogin extends javax.swing.JFrame {
         btnSalir.addActionListener(controladorGUILogin);
     }
 
+    public String getTxtCuenta() {
+        return txtCuenta.getText().trim();
+    }
+
+    public void setTxtCuenta(String txtCuenta) {
+        this.txtCuenta.setText(txtCuenta); 
+    }
+
+    public String getTxtPassword() {
+        return txtPassword.getText().trim();
+    }
+
+    public void setTxtPassword(String txtPassword) {
+        this.txtPassword.setText(txtPassword);
+    }
+
+    
 }
