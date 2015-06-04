@@ -35,8 +35,9 @@ public class ControladorGUILogin implements ActionListener {
                  GUICorreo guiCorreo = new GUICorreo();
                  guiCorreo.show();
                  guiLogin.setVisible(false);
+                 
              }
-
+             guiLogin.limpiarTxt();
         }
         if (e.getActionCommand().equals(GUILogin.BTN_SALIR)) {
            if(GUI_Inicio.confirmMessage("Esta seguro que quiere salir d la aplicación?").equalsIgnoreCase("si"))

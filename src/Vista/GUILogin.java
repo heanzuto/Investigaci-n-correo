@@ -192,5 +192,8 @@ public class GUILogin extends javax.swing.JFrame {
         this.txtPassword.setText(txtPassword);
     }
 
-    
+    public void limpiarTxt(){
+        this.txtCuenta.setText("");
+        this.txtPassword.setText("");
+    }
 }
