@@ -14,7 +14,7 @@ import java.awt.event.MouseListener;
  */
 public class GUICorreo extends javax.swing.JFrame {
 
-    /**
+    /**aaaa
      * Creates new form GUICorreo
      */
     public GUICorreo() {
