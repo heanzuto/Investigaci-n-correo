@@ -9,6 +9,10 @@ import Vista.GUICorreo;
 import Vista.GUIEnvios;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import modelo.SMTPAuthentication;
 
 /**
@@ -27,6 +31,13 @@ public class ControladorGUICorreo implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         if(e.getSource().equals(guiCorreo.getLbBandeja()))
         {
+            try {
+                autentificacion.cargarInbox();
+            } catch (MessagingException ex) {
+                Logger.getLogger(ControladorGUICorreo.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ControladorGUICorreo.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.err.println("se pulso la bandeja");
         }
          if(e.getSource().equals(guiCorreo.getLbCerrarSesion()))

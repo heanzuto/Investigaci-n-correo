@@ -30,7 +30,6 @@ private Controlador.ControladorGUIEnvios control;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         panelEnvios = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -78,6 +77,8 @@ private Controlador.ControladorGUIEnvios control;
         btnEnviar.setActionCommand("Enviar");
 
         jLabel3.setText("Adjunto:");
+
+        txtAdjunto.setEditable(false);
 
         javax.swing.GroupLayout panelEnviosLayout = new javax.swing.GroupLayout(panelEnvios);
         panelEnvios.setLayout(panelEnviosLayout);
@@ -136,14 +137,9 @@ private Controlador.ControladorGUIEnvios control;
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42)
                         .addGroup(panelEnviosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelEnviosLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelEnviosLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panelEnviosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnAdjuntar)
-                                    .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAdjuntar)
+                            .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(panelEnviosLayout.createSequentialGroup()
                         .addGap(64, 64, 64)

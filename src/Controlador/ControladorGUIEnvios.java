@@ -32,6 +32,14 @@ private SMTPAuthentication autentificacion;
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equalsIgnoreCase(GUIEnvios.BTN_ENVIAR))
         {
+            if(guiEnvios.getTxtPara().equalsIgnoreCase("")){
+            GUI_Inicio.errorMessage("Debe agregar destinatario de correo");
+            }else if(guiEnvios.getTxtAsunto().equalsIgnoreCase("")){
+            GUI_Inicio.errorMessage("Debe asunto del correo");
+            }else if(guiEnvios.getTextArea().equalsIgnoreCase("")){
+            GUI_Inicio.errorMessage("Debe agregar contenido del correo");
+            }
+            else{
             if(guiEnvios.getTxtAdjunto().equalsIgnoreCase(""))
             {
                 try {
@@ -50,11 +58,18 @@ private SMTPAuthentication autentificacion;
             }
                 
              }
+        }
+        }
         if(e.getActionCommand().equalsIgnoreCase(GUIEnvios.BTN_ADJUNTAR))
-        {
+        { 
             this.autentificacion.mostrarRutas();
+        }
+        
+         if(e.getActionCommand().equalsIgnoreCase(GUIEnvios.BTN_CANCELAR))
+        { 
+            guiEnvios.dispose();
         }
 
     }
     }
-}
+
