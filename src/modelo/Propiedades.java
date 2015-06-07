@@ -30,11 +30,11 @@ public class Propiedades {
         "mail.smtp.user", "usuario",
         "mail.smtp.port", "25"};
 
-   public static String[] PROPS_UCR = {"mail.smtp.host", "smtp.ucr.ac.cr ",
+   public static String[] PROPS_UCR = {"mail.smtp.host", "pop.ucr.ac.cr ",
         "mail.smtp.starttls.enable", "true",
         "mail.smtp.auth", "true",
         "mail.smtp.user", "usuario",
-        "mail.smtp.port", "25"};
+        "mail.smtp.port", "110"};
                                 //SMTP:smtp.ucr.ac.cr   (25) //POP:ucr.ac.cr (110)
 
     public Propiedades() {

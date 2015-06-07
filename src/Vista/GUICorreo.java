@@ -5,8 +5,11 @@
  */
 package Vista;
 
+import Controlador.ControladorGUICorreo;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import javax.swing.JLabel;
+import modelo.SMTPAuthentication;
 
 /**
  *
@@ -17,9 +20,15 @@ public class GUICorreo extends javax.swing.JFrame {
     /** 
      * Creates new form GUICorreo
      */
-    public GUICorreo() {
+    private Controlador.ControladorGUICorreo control;
+    public GUICorreo(SMTPAuthentication autentificacion) {
         initComponents();
+        control=new ControladorGUICorreo(this,autentificacion);
+        escuchar(control);
+        
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +79,7 @@ public class GUICorreo extends javax.swing.JFrame {
         lbBandeja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         lbUsuario.setText("Usuario");
+        lbUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         lbCerrarSesion.setText("Cerrar sesion");
         lbCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -146,12 +156,45 @@ public class GUICorreo extends javax.swing.JFrame {
     private javax.swing.JLabel lbUsuario;
     // End of variables declaration//GEN-END:variables
 
-public void escuchar(MouseListener control)
+public void escuchar(ControladorGUICorreo control)
 {
     this.lbCerrarSesion.addMouseListener(control);
     this.lbBandeja.addMouseListener(control);
     this.lbNuevo.addMouseListener(control);
     this.lbUsuario.addMouseListener(control);
-    
 }
+
+    public JLabel getLbBandeja() {
+        return lbBandeja;
+    }
+
+    public void setLbBandeja(JLabel lbBandeja) {
+        this.lbBandeja = lbBandeja;
+    }
+
+    public JLabel getLbCerrarSesion() {
+        return lbCerrarSesion;
+    }
+
+    public void setLbCerrarSesion(JLabel lbCerrarSesion) {
+        this.lbCerrarSesion = lbCerrarSesion;
+    }
+
+    public JLabel getLbNuevo() {
+        return lbNuevo;
+    }
+
+    public void setLbNuevo(JLabel lbNuevo) {
+        this.lbNuevo = lbNuevo;
+    }
+
+    public JLabel getLbUsuario() {
+        return lbUsuario;
+    }
+
+    public void setLbUsuario(JLabel lbUsuario) {
+        this.lbUsuario = lbUsuario;
+    }
+
+
 }

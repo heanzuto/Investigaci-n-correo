@@ -32,7 +32,7 @@ public class ControladorGUILogin implements ActionListener {
              autentificacion.autentificar();
              if(SMTPAuthentication.getEstadoAtentificado())
              {
-                 GUICorreo guiCorreo = new GUICorreo();
+                 GUICorreo guiCorreo = new GUICorreo(autentificacion);
                  guiCorreo.show();
                  guiLogin.setVisible(false);
                  
