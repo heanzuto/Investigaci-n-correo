@@ -31,6 +31,7 @@ public class ControladorGUICorreo implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         if(e.getSource().equals(guiCorreo.getLbBandeja()))
         {
+            System.err.println("se pulso la bandeja");
             try {
                 autentificacion.cargarInbox();
             } catch (MessagingException ex) {
@@ -38,7 +39,8 @@ public class ControladorGUICorreo implements MouseListener {
             } catch (IOException ex) {
                 Logger.getLogger(ControladorGUICorreo.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.err.println("se pulso la bandeja");
+   
+            
         }
          if(e.getSource().equals(guiCorreo.getLbCerrarSesion()))
         {
