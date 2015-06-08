@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -34,7 +35,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -225,10 +225,13 @@ public class SMTPAuthentication extends Authenticator {
 
         // Para obtener un log más extenso.
         //sesion.setDebug(false);
-
         //Para obtener los mensajes, establecemos la conexión, pedimos el almacén de mensajes y dentro del almacén, la carpeta INBOX 
         Store store = sesion.getStore("imaps");
-        store.connect("pop.gmail.com", this.user, this.password);
+        
+        //"imap-mail.outlook.com"  => host outlook
+        //"smtp.gmail.com"  => host gmail
+        store.connect("smtp.gmail.com", this.user, this.password);
+
         Folder folder = store.getFolder("INBOX");
         folder.open(Folder.READ_ONLY);
 
@@ -236,7 +239,7 @@ public class SMTPAuthentication extends Authenticator {
         Message[] mensajes = folder.getMessages();
 
         //analizar el contenido de los mensajes
-        for (Message message :mensajes) {
+        for (Message message : mensajes) {
             System.out.println("From:" + message.getFrom()[0].toString());
             System.out.println("Subject:" + message.getSubject());
             System.out.println("SENT DATE:" + message.getSentDate());
