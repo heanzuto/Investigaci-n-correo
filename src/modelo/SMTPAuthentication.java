@@ -240,18 +240,6 @@ public class SMTPAuthentication extends Authenticator {
 
         //Una vez que tenemos la carpeta, obtener los mensajes es inmediato 
         Message[] mensajes = folder.getMessages();
-        for (int i = 0; i < mensajes.length; i++) {
-            Message messages = mensajes[i];
-//            Address[] from = messages.getFrom();
-//            System.out.println("-------------------------------");
-//            System.out.println("Date : " + messages.getSentDate());
-//            System.out.println("From : " + from[0]);
-//            System.out.println("Subject: " + messages.getSubject());
-//            System.out.println("Content :");
-//            //processMessageBody(message);
-//            System.out.println("--------------------------------");
-
-        }
         return mensajes;
     }
 
@@ -260,7 +248,7 @@ public class SMTPAuthentication extends Authenticator {
         Address[] from = mensaje.getFrom();
         switch (dato) {
             case 0:
-                return ""+from[0];
+                return ""+from[0].toString();
             case 1:
                 return mensaje.getSubject();
             case 2:
@@ -274,7 +262,7 @@ public class SMTPAuthentication extends Authenticator {
         Message[] mensajes = getMensajes();
         String matriz[][] = new String[mensajes.length][PanelTabla.getTamannoEtiquetas()];
 
-        for (int fila = 0; fila < matriz.length; fila++) {
+        for (int fila = 0 ; fila < matriz.length; fila++) {
             for (int colum = 0; colum < matriz[fila].length; colum++) {
                 matriz[fila][colum] = getDato(mensajes[fila],colum);
             }
