@@ -242,14 +242,14 @@ public class SMTPAuthentication extends Authenticator {
         Message[] mensajes = folder.getMessages();
         for (int i = 0; i < mensajes.length; i++) {
             Message messages = mensajes[i];
-            Address[] from = messages.getFrom();
-            System.out.println("-------------------------------");
-            System.out.println("Date : " + messages.getSentDate());
-            System.out.println("From : " + from[0]);
-            System.out.println("Subject: " + messages.getSubject());
-            System.out.println("Content :");
-            //processMessageBody(message);
-            System.out.println("--------------------------------");
+//            Address[] from = messages.getFrom();
+//            System.out.println("-------------------------------");
+//            System.out.println("Date : " + messages.getSentDate());
+//            System.out.println("From : " + from[0]);
+//            System.out.println("Subject: " + messages.getSubject());
+//            System.out.println("Content :");
+//            //processMessageBody(message);
+//            System.out.println("--------------------------------");
 
         }
         return mensajes;
