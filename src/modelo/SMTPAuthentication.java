@@ -7,6 +7,7 @@ package modelo;
 
 import Vista.GUIEnvios;
 import Vista.GUI_Inicio;
+import Vista.PanelTabla;
 import com.sun.mail.smtp.SMTPMessage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,6 +18,7 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.imageio.ImageIO;
+import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
@@ -50,6 +52,7 @@ public class SMTPAuthentication extends Authenticator {
     private GUIEnvios guiEnvios;
     String[] datosArchivo = new String[2];
     private Properties props;
+     
 
     public SMTPAuthentication(String user, String password) {
         this.user = user;
@@ -219,7 +222,7 @@ public class SMTPAuthentication extends Authenticator {
         this.datosArchivo = datosArchivo;
     }
 
-    public void cargarInbox() throws NoSuchProviderException, MessagingException, IOException {
+    public Message[] getMensajes() throws NoSuchProviderException, MessagingException, IOException {
 
         Session sesion = Session.getInstance(props);
 
@@ -227,52 +230,57 @@ public class SMTPAuthentication extends Authenticator {
         //sesion.setDebug(false);
         //Para obtener los mensajes, establecemos la conexión, pedimos el almacén de mensajes y dentro del almacén, la carpeta INBOX 
         Store store = sesion.getStore("imaps");
-        
+
         //"imap-mail.outlook.com"  => host outlook
         //"smtp.gmail.com"  => host gmail
-        store.connect("smtp.gmail.com", this.user, this.password);
+        store.connect(Propiedades.getHost(), this.user, this.password);
 
         Folder folder = store.getFolder("INBOX");
         folder.open(Folder.READ_ONLY);
 
         //Una vez que tenemos la carpeta, obtener los mensajes es inmediato 
         Message[] mensajes = folder.getMessages();
+        for (int i = 0; i < mensajes.length; i++) {
+            Message messages = mensajes[i];
+            Address[] from = messages.getFrom();
+            System.out.println("-------------------------------");
+            System.out.println("Date : " + messages.getSentDate());
+            System.out.println("From : " + from[0]);
+            System.out.println("Subject: " + messages.getSubject());
+            System.out.println("Content :");
+            //processMessageBody(message);
+            System.out.println("--------------------------------");
 
-        //analizar el contenido de los mensajes
-        for (Message message : mensajes) {
-            System.out.println("From:" + message.getFrom()[0].toString());
-            System.out.println("Subject:" + message.getSubject());
-            System.out.println("SENT DATE:" + message.getSentDate());
-            // Si es compuesto, su MIME type es multipart
-            if (message.isMimeType("multipart/*")) {
-                // Obtenemos el contenido, que es de tipo MultiPart.
-                Multipart multi;
-                multi = (Multipart) message.getContent();
+        }
+        return mensajes;
+    }
 
-                // Extraemos cada una de las partes.
-                for (int j = 0; j < multi.getCount(); j++) {
-                    Part unaParte = multi.getBodyPart(j);
-
-                    // Volvemos a analizar cada parte de la MultiParte
-                    if (unaParte.isMimeType("text/plain")) {
-//                        Multipart multis;
-//                        multis = (Multipart) mensajes[i].getContent();
-                    }
-                    if (unaParte.isMimeType("text/*")) {
-//                        System.out.println(unaParte.getContent());
-                    }
-                    if (unaParte.isMimeType("image/*")) {
-//                        FileOutputStream fichero = new FileOutputStream(unaParte.getFileName());
-//                        InputStream imagen = unaParte.getInputStream();
-//                        byte[] bytes = new byte[1000];
-//                        int leidos = 0;
-//                        while ((leidos = imagen.read(bytes)) > 0) {
-//                            fichero.write(bytes, 0, leidos);
-//                        }
-                    }
-                }
-            }
-            System.err.println("-------------------------------------------------");
+    public String getDato(Message mensaj,int dato) throws MessagingException {
+        Message mensaje = mensaj;
+        Address[] from = mensaje.getFrom();
+        switch (dato) {
+            case 0:
+                return ""+from[0];
+            case 1:
+                return mensaje.getSubject();
+            case 2:
+                return ""+mensaje.getSentDate();
+            default:
+                return null;
         }
     }
+
+    public String[][] getMatriz() throws MessagingException, NoSuchProviderException, IOException {
+        Message[] mensajes = getMensajes();
+        String matriz[][] = new String[mensajes.length][PanelTabla.getTamannoEtiquetas()];
+
+        for (int fila = 0; fila < matriz.length; fila++) {
+            for (int colum = 0; colum < matriz[fila].length; colum++) {
+                matriz[fila][colum] = getDato(mensajes[fila],colum);
+            }
+        }
+        return matriz;
+
+    }
+ 
 }

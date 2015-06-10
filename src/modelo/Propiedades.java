@@ -17,7 +17,7 @@ import javax.mail.Transport;
 public class Propiedades {
 
    private static int opcion;
-   
+   private static String host;
     public static String[] PROPS_GMAIL = {"mail.smtp.host", "smtp.gmail.com",
         "mail.smtp.starttls.enable", "true",
         "mail.smtp.auth", "true",
@@ -52,11 +52,14 @@ public class Propiedades {
  
     
     public static String[] getPropiedades()
-    {
+    {        //"imap-mail.outlook.com"  => host outlook
+        //"smtp.gmail.com"  => host gmail
         if(getOpcion()==1){
-            return PROPS_GMAIL;
+           host = "smtp.gmail.com";
+           return PROPS_GMAIL;
         }
         else if(getOpcion()==2){
+            host = "imap-mail.outlook.com";
             return PROPS_OUTLOOK;
         }
         else if(getOpcion()==3){
@@ -64,6 +67,12 @@ public class Propiedades {
         }
         return null;
     }
+
+    public static String getHost() {
+        return host;
+    }
+
+ 
     
  
 }
