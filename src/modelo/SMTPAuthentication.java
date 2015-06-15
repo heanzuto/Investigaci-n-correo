@@ -280,7 +280,7 @@ public class SMTPAuthentication extends Authenticator {
     
     
    //---------------------------------------------------------------------------
-   public void descarga(int posi)
+   public void descargaAdjunto(int posi)
    {
          Session sesion = Session.getInstance(props);
         try
@@ -294,18 +294,9 @@ public class SMTPAuthentication extends Authenticator {
 
             // Se obtienen los mensajes.
             Message[] mensajes = folder.getMessages();
-
-            // Se escribe from y subject de cada mensaje
-            /*for (int i = 0; i < mensajes.length; i++)
-            {
-                System.out.println(
-                    "From:" + mensajes[i].getFrom()[0].toString());
-                System.out.println("Subject:" + mensajes[i].getSubject());*/
                 
-                // Se visualiza, si se sabe como, el contenido de cada mensaje
+               // Se visualiza, si se sabe como, el contenido del mensaje selecionado
                 analizaParteDeMensaje(mensajes[posi]);
-           // }
-
             folder.close(false);
             store.close();
         }
@@ -314,7 +305,8 @@ public class SMTPAuthentication extends Authenticator {
             e.printStackTrace();
         }
    }
-     public  void pruebas()
+   //   Este descarga todos los adjuntos de la INBOX
+     /*public  void pruebas()
      {
         Session sesion = Session.getInstance(props);
         try
@@ -347,7 +339,7 @@ public class SMTPAuthentication extends Authenticator {
         {
             e.printStackTrace();
         }
-    }
+    }*/
      
        private static void analizaParteDeMensaje(Part unaParte)
     {
@@ -411,12 +403,12 @@ public class SMTPAuthentication extends Authenticator {
                       // el tipo.
                         if(unaParte.isMimeType("APPLICATION/OCTET-STREAM"))
                         {
-                            JOptionPane.showMessageDialog(null, "es aplication");
+                           // JOptionPane.showMessageDialog(null, "es aplication");
                             System.out.println(
                             "Recibido " + unaParte.getContentType());
 
                              FileDataSource file=new FileDataSource(unaParte.getContentType())  ; 
-                             System.out.println("-------------------------------?????--"); 
+                             System.out.println("-------------------------------------------"); 
                             salvarFichero(unaParte);
                         }
                        

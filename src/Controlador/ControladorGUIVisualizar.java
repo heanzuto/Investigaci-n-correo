@@ -31,8 +31,8 @@ GUICorreo guiCorreo;
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equalsIgnoreCase(GUIVisualizarCorreo.BTN_DOWLOAD))
         {
-            JOptionPane.showMessageDialog(null,guiCorreo.getPanelTabla1().getjTable1().getSelectedRow());
-            autentificacion.descarga(guiCorreo.getPanelTabla1().getjTable1().getSelectedRow());
+            //JOptionPane.showMessageDialog(null,guiCorreo.getPanelTabla1().getjTable1().getSelectedRow());
+            autentificacion.descargaAdjunto(guiCorreo.getPanelTabla1().getjTable1().getSelectedRow());
             
         }
         if(e.getActionCommand().equalsIgnoreCase(GUIVisualizarCorreo.BTN_SAlIR))
