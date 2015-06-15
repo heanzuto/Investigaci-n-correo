@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import java.awt.event.MouseListener;
+import javax.swing.JTable;
+
 /**
  *
  * @author anthony
@@ -14,7 +17,7 @@ public class PanelTabla extends javax.swing.JPanel {
     /**
      * Creates new form PanelTabla
      */
-    private static String[] etiquetas = {"De", "Asunto", "Fecha"};
+    private static String[] etiquetas = {"De", "Asunto", "Fecha","Tipo de contenido"};
 
     public PanelTabla() {
         initComponents();
@@ -73,4 +76,21 @@ public class PanelTabla extends javax.swing.JPanel {
             jScrollPane1.setViewportView(jTable1);
         }
     }
+    public String[] getdatosFila() {
+        String datos[] = new String[jTable1.getColumnCount()];
+        int filaSeleccionada = jTable1.getSelectedRow();
+        for (int columna = 0; columna < datos.length; columna++) {
+            datos[columna] = jTable1.getValueAt(filaSeleccionada, columna).toString().trim();
+        }
+        return datos;
+    }
+
+    public JTable getjTable1() {
+        return jTable1;
+    }
+
+    public void setjTable1(JTable jTable1) {
+        this.jTable1 = jTable1;
+    }
+
 }

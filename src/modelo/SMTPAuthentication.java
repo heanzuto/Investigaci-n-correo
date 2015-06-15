@@ -10,6 +10,7 @@ import Vista.GUI_Inicio;
 import Vista.PanelTabla;
 import com.sun.mail.smtp.SMTPMessage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
+import javax.activation.FileTypeMap;
 import javax.imageio.ImageIO;
 import javax.mail.Address;
 import javax.mail.Authenticator;
@@ -37,7 +39,9 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,10 +52,10 @@ public class SMTPAuthentication extends Authenticator {
     private String user = "";
     private String password = "";
     private static boolean ESTADO_AUTENTIFICADO;
-    private Session session;
+    private static Session session;
     private GUIEnvios guiEnvios;
     String[] datosArchivo = new String[2];
-    private Properties props;
+    private static Properties props;
      
 
     public SMTPAuthentication(String user, String password) {
@@ -253,6 +257,9 @@ public class SMTPAuthentication extends Authenticator {
                 return mensaje.getSubject();
             case 2:
                 return ""+mensaje.getSentDate();
+            case 3:
+                return ""+mensaje.getContentType();
+                        
             default:
                 return null;
         }
@@ -270,5 +277,182 @@ public class SMTPAuthentication extends Authenticator {
         return matriz;
 
     }
- 
+    
+    
+   //---------------------------------------------------------------------------
+   public void descarga(int posi)
+   {
+         Session sesion = Session.getInstance(props);
+        try
+        {
+          // Se obtiene el Store y el Folder, para poder leer el correo.
+           Store store = sesion.getStore("imaps");
+           store.connect(Propiedades.getHost(), this.user, this.password);
+           
+            Folder folder = store.getFolder("INBOX");
+            folder.open(Folder.READ_ONLY);
+
+            // Se obtienen los mensajes.
+            Message[] mensajes = folder.getMessages();
+
+            // Se escribe from y subject de cada mensaje
+            /*for (int i = 0; i < mensajes.length; i++)
+            {
+                System.out.println(
+                    "From:" + mensajes[i].getFrom()[0].toString());
+                System.out.println("Subject:" + mensajes[i].getSubject());*/
+                
+                // Se visualiza, si se sabe como, el contenido de cada mensaje
+                analizaParteDeMensaje(mensajes[posi]);
+           // }
+
+            folder.close(false);
+            store.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+   }
+     public  void pruebas()
+     {
+        Session sesion = Session.getInstance(props);
+        try
+        {
+          // Se obtiene el Store y el Folder, para poder leer el correo.
+           Store store = sesion.getStore("imaps");
+           store.connect(Propiedades.getHost(), this.user, this.password);
+           
+            Folder folder = store.getFolder("INBOX");
+            folder.open(Folder.READ_ONLY);
+
+            // Se obtienen los mensajes.
+            Message[] mensajes = folder.getMessages();
+
+            // Se escribe from y subject de cada mensaje
+            for (int i = 0; i < mensajes.length; i++)
+            {
+                System.out.println(
+                    "From:" + mensajes[i].getFrom()[0].toString());
+                System.out.println("Subject:" + mensajes[i].getSubject());
+                
+                // Se visualiza, si se sabe como, el contenido de cada mensaje
+                analizaParteDeMensaje(mensajes[i]);
+            }
+
+            folder.close(false);
+            store.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+     
+       private static void analizaParteDeMensaje(Part unaParte)
+    {
+        try
+        {
+          // Si es multipart, se analiza cada una de sus partes recursivamente.
+            if (unaParte.isMimeType("multipart/*"))
+            {
+                Multipart multi;
+                multi = (Multipart) unaParte.getContent();
+
+                for (int j = 0; j < multi.getCount(); j++)
+                {
+                    analizaParteDeMensaje(multi.getBodyPart(j));
+                }
+            }
+            else
+            {
+              // Si es texto, se escribe el texto.
+                if (unaParte.isMimeType("text/*"))
+                {
+                    System.out.println("Texto " + unaParte.getContentType());
+                    System.out.println(unaParte.getContent());
+                    System.out.println("---------------------------------");
+                }
+                //AQUI
+                else if(unaParte.isMimeType("multipart/alternative") )
+                {
+                    JOptionPane.showMessageDialog(null, "entro");
+                    String cuerpoMensaje;
+                            Multipart mp2=(Multipart) unaParte.getContent();
+                            Part part2=mp2.getBodyPart(0);
+                            cuerpoMensaje=(String)part2.getContent();
+                            
+                            String nombrePart=unaParte.getFileName();
+				if(nombrePart==null)
+					nombrePart="adjunto";
+                                    MimeBodyPart mbp2;
+					//procesar el adjunto
+					mbp2=(MimeBodyPart)unaParte;
+					mbp2.saveFile(nombrePart);
+
+                    
+	}
+                else
+                {
+                  // Si es file, se guarda en fichero y se visualiza en JFrame
+                    if (unaParte.isMimeType("image/*"))
+                    {
+                        System.out.println(
+                            "Imagen " + unaParte.getContentType());
+                        System.out.println("Fichero=" + unaParte.getFileName());
+                        System.out.println("---------------------------------");
+
+                        salvarFichero(unaParte);
+                        visualizaImagenEnJFrame(unaParte);
+                    }
+                    else
+                    {
+                      // Si no es ninguna de las anteriores, se escribe en pantalla
+                      // el tipo.
+                        if(unaParte.isMimeType("APPLICATION/OCTET-STREAM"))
+                        {
+                            JOptionPane.showMessageDialog(null, "es aplication");
+                            System.out.println(
+                            "Recibido " + unaParte.getContentType());
+
+                             FileDataSource file=new FileDataSource(unaParte.getContentType())  ; 
+                             System.out.println("-------------------------------?????--"); 
+                            salvarFichero(unaParte);
+                        }
+                       
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+       
+         private static void visualizaImagenEnJFrame(Part unaParte)
+        throws IOException, MessagingException
+    {
+       /* JFrame v = new JFrame();
+        ImageIcon icono = new ImageIcon(
+                ImageIO.read(unaParte.getInputStream()));
+        JLabel l = new JLabel(icono);
+        v.getContentPane().add(l);
+        v.pack();
+        v.setVisible(true);*/
+    }
+         private static void salvarFichero(Part unaParte)
+        throws FileNotFoundException, MessagingException, IOException
+    {
+        FileOutputStream fichero = new FileOutputStream(unaParte.getFileName());
+        InputStream file = unaParte.getInputStream();
+        byte[] bytes = new byte[1000];
+        int leidos = 0;
+
+        while ((leidos = file.read(bytes)) > 0)
+        {
+            fichero.write(bytes, 0, leidos);
+        }
+    }
+
 }

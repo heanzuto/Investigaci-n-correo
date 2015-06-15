@@ -7,12 +7,14 @@ package Controlador;
 
 import Vista.GUICorreo;
 import Vista.GUIEnvios;
+import Vista.GUIVisualizarCorreo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
+import javax.swing.JOptionPane;
 import modelo.SMTPAuthentication;
 
 /**
@@ -25,14 +27,21 @@ public class ControladorGUICorreo implements MouseListener {
     public ControladorGUICorreo(GUICorreo guiCorreo,SMTPAuthentication autentificacion) {
        this.guiCorreo=guiCorreo;
        this.autentificacion=autentificacion;
+       this.guiCorreo.setLbUsuario(this.autentificacion.getUser());
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+         if(e.getSource().equals(guiCorreo.getPanelTabla1().getjTable1()))
+        { 
+           GUIVisualizarCorreo visualizar=new GUIVisualizarCorreo(this.autentificacion,this.guiCorreo);
+           visualizar.setTextArea(guiCorreo.getPanelTabla1().getdatosFila());
+        visualizar.setVisible(true);
+        }
         if(e.getSource().equals(guiCorreo.getLbBandeja()))
         {
+            //autentificacion.pruebas();
             try {
-                System.err.println("se pulso la bandeja");
                 guiCorreo.setCargarInbox(autentificacion.getMatriz());
             } catch (MessagingException ex) {
                 Logger.getLogger(ControladorGUICorreo.class.getName()).log(Level.SEVERE, null, ex);

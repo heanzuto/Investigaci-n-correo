@@ -159,6 +159,7 @@ public void escuchar(ControladorGUICorreo control)
     this.lbBandeja.addMouseListener(control);
     this.lbNuevo.addMouseListener(control);
     this.lbUsuario.addMouseListener(control);
+    this.panelTabla1.getjTable1().addMouseListener(control);
 }
 
     public JLabel getLbBandeja() {
@@ -189,13 +190,21 @@ public void escuchar(ControladorGUICorreo control)
         return lbUsuario;
     }
 
-    public void setLbUsuario(JLabel lbUsuario) {
-        this.lbUsuario = lbUsuario;
+    public void setLbUsuario(String lbUsuario) {
+        this.lbUsuario.setText(lbUsuario);
     }
     
     public void setCargarInbox(String[][] datosFilas) {
 
         this.panelTabla1.setValores(datosFilas);
+    }
+
+    public PanelTabla getPanelTabla1() {
+        return panelTabla1;
+    }
+
+    public void setPanelTabla1(PanelTabla panelTabla1) {
+        this.panelTabla1 = panelTabla1;
     }
     
 }
