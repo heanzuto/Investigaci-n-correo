@@ -54,6 +54,8 @@ public class ControladorGUICorreo implements MouseListener {
          if(e.getSource().equals(guiCorreo.getLbCerrarSesion()))
         {
             System.err.println("se pulso la cerrar cesion");
+            
+            System.exit(0);
         }
           if(e.getSource().equals(guiCorreo.getLbNuevo()))
         {
